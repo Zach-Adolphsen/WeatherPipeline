@@ -14,11 +14,11 @@ This project retrieves weather forecast data for Fargo, ND using the OpenWeather
 - Modular architecture with separate database and configuration modules
 
 ## Project Structure
-WeatherPipeline/
-├── src/ │ 
-         ├── config.py # Configuration and environment variable management 
+WeatherPipeline/\n
+├── src/ │ \n
+         ├── config.py # Configuration and environment variable management \n
          └── database.py # Database connection and data insertion logic 
-├── main.py # Main application entry point 
+├── main.py # Main application entry point \n
 └── README.md # Project documentation
 
 There are more files in the project that are not tracked by git
