@@ -1,0 +1,35 @@
+name: Weather Pipeline
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    # GitHub cron uses UTC.
+    # 2:00 AM Central = 08:00 UTC when CST, 07:00 UTC when CDT.
+    # We choose 08:00 UTC — it becomes 2 AM (winter) / 3 AM (summer).
+    - cron: "0 8 * * *"
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Export Supabase credentials
+        run: |
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
+          echo "SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" >> $GITHUB_ENV
+
+      - name: Run Weather Pipeline
+        run: python main.py
