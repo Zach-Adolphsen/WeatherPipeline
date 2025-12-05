@@ -2,7 +2,7 @@ import psycopg2
 import os
 
 def get_connection():
-    db_conn = os.getenv("DATABASE_URL")
+    db_conn = os.getenv("SUPABASE_URL")
     return psycopg2.connect(db_conn)
 
 '''
