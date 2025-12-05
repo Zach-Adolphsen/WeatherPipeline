@@ -1,9 +1,9 @@
 import psycopg2
-from src.config import DATABASE_URL
-
+import os
 
 def get_connection():
-    return psycopg2.connect(DATABASE_URL)
+    db_conn = os.getenv("DATABASE_URL")
+    return psycopg2.connect(db_conn)
 
 '''
 Wanted data:

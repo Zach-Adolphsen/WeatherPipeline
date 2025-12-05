@@ -14,11 +14,10 @@ def connect_to_api():
     except Exception as e:
         print(e)
 
-
 if __name__ == "__main__":
     load_dotenv()
-    API_KEY = os.environ['API_KEY']
+    API_KEY = os.getenv('API_KEY')
 
     data = connect_to_api()
-    # create_tables()   -- ONLY NEEDED ONCE
     insert_weather_data(data)
+    print("Data inserted into database successfully!")
