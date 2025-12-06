@@ -3,44 +3,9 @@ import os
 
 def get_connection():
     db_conn = os.getenv("SUPABASE_URL")
+    if not db_conn:
+        raise Exception("SUPABASE_URL not found in environment variables")
     return psycopg2.connect(db_conn)
-
-'''
-Wanted data:
- - Date/Time (in Unix) PK
- - temp
- - feels_like
- - temp_max
- - temp_min
- - humidity
- - weather_description
- - cloud_coverage
- - wind_speed
- - wind_gusts
- - wind_direction
- - rain_upcoming
-'''
-def create_tables():
-    with get_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute('''
-                CREATE TABLE IF NOT EXISTS weather_data (
-                    date_time BIGINT PRIMARY KEY,
-                    temperature INT NOT NULL,
-                    feels_like INT NOT NULL,
-                    temp_max INT NOT NULL,
-                    temp_min INT NOT NULL,
-                    humidity INT NOT NULL,
-                    weather_description TEXT NOT NULL,
-                    cloud_coverage INT NOT NULL,
-                    wind_speed INT NOT NULL,
-                    wind_gusts INT NOT NULL,
-                    wind_direction TEXT NOT NULL,
-                    rain_upcoming TEXT NOT NULL,
-                    last_updated TIMESTAMP NOT NULL DEFAULT NOW()
-                )
-            ''')
-        conn.commit()
 
 def insert_weather_data(weather_data):
     with get_connection() as conn:

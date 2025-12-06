@@ -33,5 +33,6 @@ jobs:
 
       - name: Run Weather Pipeline
         env:
-          DATABASE_URL: ${{ env.DATABASE_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          API_KEY: ${{ secrets.API_KEY }}
         run: python main.py

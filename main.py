@@ -1,7 +1,7 @@
 import os
 import requests
 from dotenv import load_dotenv
-from src.database import insert_weather_data, create_tables
+from src.database import insert_weather_data
 
 def connect_to_api():
     # API call for Fargo, ND
@@ -19,6 +19,14 @@ if __name__ == "__main__":
     API_KEY = os.getenv('API_KEY')
 
     data = connect_to_api()
-    create_tables()
-    insert_weather_data(data)
-    print("Data inserted into database successfully!")
+
+    if data is None:
+        print("Error: failed to fetch API data. Exiting...")
+        exit(1)
+
+    try:
+        insert_weather_data(data)
+        print("Data inserted into database successfully!")
+    except Exception as e:
+        print(f"Error inserting data into database: {e}")
+        exit(1)
