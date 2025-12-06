@@ -26,12 +26,6 @@ jobs:
         run: |
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Wait for Postgres
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y postgresql-client
-          until pg_isready -h postgres -p 5432 -U github; do sleep 1; done
-
       - name: Export Supabase credentials
         run: |
           echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
