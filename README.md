@@ -9,6 +9,6 @@ This project retrieves weather forecast data for Fargo, ND using the OpenWeather
 ## Features
 
 - Fetches 5-day weather forecast data from OpenWeather API
-- Stores weather data in PostgreSQL database
-- Uses environment variables for secure configuration management
+- Stores weather data in a Supabase PostgreSQL cloud database
+- Uses GitHub Actions to automate the pipeline, running every day @ 2 am
 - Modular architecture with separate database and configuration modules
